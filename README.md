@@ -94,6 +94,7 @@ This endpoint returns the status of a specific event and the number of people on
 
 
 Bookings
+
 Book an Event:
 
 POST /api/v1/bookings/book
@@ -103,12 +104,14 @@ This endpoint is used to book tickets for an event.
 Request Body:
 
 json
-Copy code
+
 {
   "eventId": 1,
   "userId": 123,
   "tickets": 2
 }
+
+
 Cancel a Booking:
 
 POST /api/v1/bookings/cancel
@@ -118,10 +121,11 @@ This endpoint cancels an existing booking.
 Request Body:
 
 json
-Copy code
+
 {
   "bookingId": 1
 }
+
 Environment Variables
 The application requires the following environment variables to be set in a .env file:
 
