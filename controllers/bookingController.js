@@ -1,10 +1,31 @@
 const Booking = require('../models/Booking');
 const Event = require('../models/Event');
+const { body, validationResult } = require('express-validator');
+
+const validateBooking = [
+   body('eventId').notEmpty().withMessage('Event ID is required'),
+   body('userId').notEmpty().withMessage('User ID is required'),
+ ];
+
+ const validateCancellation = [
+   body('eventId').notEmpty().withMessage('Event ID is required'),
+   body('userId').notEmpty().withMessage('User ID is required'),
+ ];
 
 const bookTicket = async (req, res) => {
+
+   const errors = validationResult(req);
+
+   if (!errors.isEmpty()) {
+     return res.status(400).json({ errors: errors.array() });
+   }
+
   const { eventId, userId } = req.body;
+
   try {
+
     const event = await Event.findByPk(eventId);
+
     if (!event) return res.status(404).json({ error: 'Event not found' });
 
     if (event.availableTickets > 0) {
@@ -22,6 +43,15 @@ const bookTicket = async (req, res) => {
 };
 
 const cancelBooking = async (req, res) => {
+
+   const errors = validationResult(req);
+
+  
+   if (!errors.isEmpty()) {
+     return res.status(400).json({ errors: errors.array() });
+   }
+
+
   const { eventId, userId } = req.body;
   try {
     const booking = await Booking.findOne({ where: { eventId, userId, status: 'booked' } });
@@ -48,4 +78,4 @@ const cancelBooking = async (req, res) => {
   }
 };
 
-module.exports = { bookTicket, cancelBooking };
+module.exports = { bookTicket, cancelBooking ,validateBooking, validateCancellation };
