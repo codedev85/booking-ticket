@@ -14,7 +14,11 @@ const Event = sequelize.define('Event', {
   availableTickets: {
    type:DataTypes.INTEGER, 
    allowNull: false
- }
+ }, 
+ userId: {
+   type:DataTypes.INTEGER,
+   allowNull: false
+ }, 
 });
 
 module.exports = Event;

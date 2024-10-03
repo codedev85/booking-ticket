@@ -3,6 +3,7 @@ const express = require('express')
 const dotenv = require('dotenv')
 const bookingRoute = require('../routes/booking')
 const eventRoute  = require('../routes/event');
+const authRoute = require('../routes/user');
 const sequelize = require('../config/db');  
 const bodyParser = require('body-parser');
 const Event = require('../models/Event'); 
@@ -22,6 +23,8 @@ dotenv.config()
 app.use("/api/v1/events",eventRoute)
 
 app.use('/api/v1/bookings', bookingRoute);
+
+app.use('/api/v1/user',authRoute);
 
 
 

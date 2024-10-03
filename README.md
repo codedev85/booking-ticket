@@ -52,6 +52,33 @@ Once the server is running, you can interact with the following API endpoints.
  
 ## API Endpoints
 
+```bash
+
+Registration Endpoint
+
+
+POST /api/v1/user/register
+
+
+
+{
+    "name" : "john doe",
+    "email": "johndoe@gmail.com",
+    "password": "password"
+}
+
+
+
+Login Endpoint
+
+POST /api/v1/user/login
+
+{
+    "email": "johndoe@gmail.com",
+    "password": "password"
+}
+
+
 Events
 
 Initialize an Event:
@@ -61,16 +88,14 @@ POST /api/v1/events/initialize
 This endpoint is used to initialize an event.
 
 
- ```bash
+Request Body:
 
-   Request Body:
+json
 
-   json
-
-   {
-      "name": "Concert",
-      "totalTickets": 100
-   }
+{
+   "name": "Concert",
+   "totalTickets": 100
+}
 
 
 Get Event Status:
@@ -79,20 +104,17 @@ GET /api/v1/events/status/:eventId
 
 This endpoint returns the status of a specific event and the number of people on the waiting list.
 
-   Response:
-
-   json
+   Response:json
 
    {
    "event": {
       "id": 1,
       "name": "Concert",
-      "totalTickets": 100
+      "totalTickets": 100,
+      "waitingList": 5
    },
-   "waitingList": 5
-   }
-
-
+   
+   
 Bookings
 
 Book an Event:
@@ -107,33 +129,33 @@ json
 
 {
   "eventId": 1,
-  "userId": 123,
-  "tickets": 2
+  "customer_name": "John Doe",
+  "customer_email": "john@gmail.co",
+  "customer_phone": "094040040404"
 }
 
 
 Cancel a Booking:
 
-POST /api/v1/bookings/cancel
+GET /api/v1/bookings/cancel/:bookingId
 
 This endpoint cancels an existing booking.
 
-Request Body:
+Request Params:
 
-json
 
-{
-  "bookingId": 1
-}
 
 Environment Variables
+
 The application requires the following environment variables to be set in a .env file:
 
 DB_PASSWORD - The password for the database.
 DATABASE - The name of the database.
 USERNAME - The username for the database connection.
 PORT - The port on which the server runs (optional; defaults to 3000).
+JWT_SECRET - 'random secret'
 
 Testing
+
 To run tests for the project, execute the following command:
 

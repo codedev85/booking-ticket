@@ -19,17 +19,20 @@ const initializeEvent = async (req, res) => {
   }
 
   const { name, totalTickets } = req.body;
+  const authUserId = req.user.id; 
   try {
     const event = await Event.create({
       name,
       totalTickets,
-      availableTickets: totalTickets
+      availableTickets: totalTickets,
+      userId:authUserId ,
     });
     res.status(201).json(event);
   } catch (error) {
     res.status(500).json({ error: 'Failed to initialize event' });
   }
 };
+
 
 const getEventStatus = async (req, res) => {
   const { eventId } = req.params;
