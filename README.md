@@ -22,6 +22,8 @@ Follow these steps to set up the project:
    ```bash
    npm install
 
+## Environment Variables
+
    Create .env File:
    Create a .env file in the root directory of your project and add the following parameters:
 
@@ -30,15 +32,9 @@ Follow these steps to set up the project:
    DATABASE=your_database_name
    USERNAME=your_db_username
    PORT=optional_port_number
-   JWT_SECRET - 'random secret'
+   JWT_SECRET= 'random secret'
+
    Note: If the PORT is not declared in the .env, it will default to 3000.
-
-
-Start the Server:
-
-To start the server, run the following command:
-
- npm run start
 
 ## Testing
 
@@ -53,7 +49,13 @@ To run tests for the application, use the command:
 - Use Register endpoint to register a user and login with the user detials , after successful login a jwtToken will be returned to you , ensure you add the jwtToken to the bearer Token to make request to the event and bookings endpoint
 
 
- 
+Start the Server:
+
+To start the server, run the following command:
+
+ npm run start
+
+
 ## API Endpoints
 
 ```bash
