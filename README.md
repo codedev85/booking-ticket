@@ -9,8 +9,7 @@ A simple ticket booking system built with Node.js, Express, Sequelize, and MySQL
 - [API Endpoints](#api-endpoints)
 - [Environment Variables](#environment-variables)
 - [Testing](#testing)
-- [Contributing](#contributing)
-- [License](#license)
+
 
 ## Project Setup
 
@@ -41,6 +40,7 @@ To start the server, run the following command:
 
  npm run start
 
+## Testing
 
 Run Tests:
 
@@ -166,7 +166,5 @@ USERNAME - The username for the database connection.
 PORT - The port on which the server runs (optional; defaults to 3000).
 JWT_SECRET - 'random secret'
 
-Testing
 
-To run tests for the project, execute the following command:
 
