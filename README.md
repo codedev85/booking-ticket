@@ -49,14 +49,16 @@ To run tests for the application, use the command:
 
 npm test
 
+
+
+## Usage
+
 Start the Server:
 
 To start the server, run the following command:
 
 
  npm run start
-
-## Usage
 
 - Once the server is running, you can interact with the following API endpoints.
 - Use Register endpoint to register a user and login with the user detials , after successful login a jwtToken will be returned to you , ensure you add the jwtToken to the bearer Token to make request to the event and bookings endpoint
