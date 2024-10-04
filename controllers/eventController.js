@@ -1,6 +1,7 @@
 const Event = require('../models/Event');
 const Booking = require('../models/Booking');
 const { body, validationResult } = require('express-validator');
+const logger = require('../logger/logger'); 
 
 const validateEvent = [
   body('name').notEmpty().withMessage('Event name is required'),
@@ -28,7 +29,11 @@ const initializeEvent = async (req, res) => {
       userId:authUserId ,
     });
     res.status(201).json(event);
+ 
   } catch (error) {
+
+    logger.error(`Initialize Event failed with error: ${error.message}`); 
+
     res.status(500).json({ error: 'Failed to initialize event' });
   }
 };
@@ -38,7 +43,13 @@ const getEventStatus = async (req, res) => {
   const { eventId } = req.params;
   try {
     const event = await Event.findByPk(eventId);
-    if (!event) return res.status(404).json({ error: 'Event not found' });
+
+    if (!event) {
+
+      logger.error(`Fetching Event Status failed : Event with ID: ${eventId} dose not exist`); 
+
+      return res.status(404).json({ error: 'Event not found' });
+    }
     
     const waitingList = await Booking.count({ where: { eventId, status: 'waiting' } });
     res.json({
@@ -46,6 +57,9 @@ const getEventStatus = async (req, res) => {
       waitingList
     });
   } catch (error) {
+
+    logger.error(`Fetching Event Status failed with error: ${error.message}`); 
+
     res.status(500).json({ error: 'Failed to retrieve event status' });
   }
 };

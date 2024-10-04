@@ -48,7 +48,10 @@ To run tests for the application, use the command:
  npm test
 
 Usage
-Once the server is running, you can interact with the following API endpoints.
+- Once the server is running, you can interact with the following API endpoints.
+- Use Register endpoint to register a user and login with the user detials , after successful login a jwtToken will be returned to you , ensure you add the jwtToken to the bearer Token to make request to the event and bookings endpoint
+
+
  
 ## API Endpoints
 
@@ -59,7 +62,7 @@ Registration Endpoint
 
 POST /api/v1/user/register
 
-
+Request Body:
 
 {
     "name" : "john doe",
@@ -72,6 +75,8 @@ POST /api/v1/user/register
 Login Endpoint
 
 POST /api/v1/user/login
+
+Request Body:
 
 {
     "email": "johndoe@gmail.com",
@@ -106,13 +111,18 @@ This endpoint returns the status of a specific event and the number of people on
 
    Response:json
 
-   {
-   "event": {
-      "id": 1,
-      "name": "Concert",
-      "totalTickets": 100,
-      "waitingList": 5
-   },
+  {
+    "event": {
+        "id": 1,
+        "name": "new concerts",
+        "totalTickets": 2000,
+        "availableTickets": 2000,
+        "userId": 1,
+        "createdAt": "2024-10-03T18:35:37.000Z",
+        "updatedAt": "2024-10-03T18:38:15.000Z"
+    },
+    "waitingList": 0
+}
    
    
 Bookings

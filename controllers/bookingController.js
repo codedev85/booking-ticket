@@ -1,6 +1,7 @@
 const Booking = require('../models/Booking');
 const Event = require('../models/Event');
 const { body, validationResult } = require('express-validator');
+const logger = require('../logger/logger'); 
 
 const validateBooking = [
    body('eventId').notEmpty().withMessage('Event ID is required'),
@@ -29,7 +30,12 @@ const bookTicket = async (req, res) => {
 
     const event = await Event.findByPk(eventId);
 
-    if (!event) return res.status(404).json({ error: 'Event not found' });
+    if (!event){
+
+      logger.warn(`Book Ticket failed: Event with the id : ${eventId} does not exists`); 
+
+      return res.status(404).json({ error: 'Event not found' });
+    } 
 
     if (event.availableTickets > 0) {
       
@@ -44,13 +50,13 @@ const bookTicket = async (req, res) => {
     } else {
 
       await Booking.create({ eventId, userId : authUserId, status: 'waiting',customer_name ,customer_email,customer_phone  });
-
+      logger.warn(`Event Sold Out : Event with the id : ${eventId} is sold out  . Customer with the email ${customer_email} is on the waiting list`); 
       res.status(200).json({ message: 'Event is sold out, you are on the waiting list' });
 
     }
 
   } catch (error) {
-
+    logger.error(`event Booking failed with error message: ${error.message}`); 
     res.status(500).json({ error: 'Failed to book ticket' });
 
   }
@@ -74,7 +80,13 @@ const cancelBooking = async (req, res) => {
 
     const booking = await Booking.findOne({ where: { id: bookingId,  status: 'booked' } });
 
-    if (!booking) return res.status(404).json({ error: 'Booking not found' });
+    if (!booking){
+
+      logger.warn(`Booking Cancellation failed: Booking with the id : ${bookingId} does not exists`);
+
+      return res.status(404).json({ error: 'Booking not found' });
+
+    }
 
     // Cancel the booking and add the first user from the waiting list
    //  await booking.destroy();
@@ -100,7 +112,7 @@ const cancelBooking = async (req, res) => {
     res.status(200).json({ message: 'Booking canceled, waiting list updated' });
 
   } catch (error) {
-
+    logger.error(`Booking cancellation failed with error: ${error.message}`); 
     res.status(500).json({ error: 'Failed to cancel booking' });
 
   }

@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv')
 const { body, validationResult } = require('express-validator');
+const logger = require('../logger/logger'); 
 
 
 dotenv.config();
@@ -35,6 +36,7 @@ const register = async (req, res) => {
     const existingUser = await User.findOne({ where: { email } });
 
     if (existingUser) {
+      logger.warn(`Registration failed: User with email ${email} already exists`); 
       return res.status(400).json({ error: 'User already exists' });
     }
 
@@ -51,7 +53,7 @@ const register = async (req, res) => {
     res.status(201).json({ message: 'User registered successfully' });
 
   } catch (error) {
-
+    logger.error(`Registration failed for email ${email}: ${error.message}`); 
     res.status(500).json({ error: 'Failed to register user' });
 
   }
