@@ -27,11 +27,15 @@ Follow these steps to set up the project:
    Create .env File:
    Create a .env file in the root directory of your project and add the following parameters:
 
-
+## Env Variables
    DB_PASSWORD=your_db_password
+
    DATABASE=your_database_name
+
    USERNAME=your_db_username
+
    PORT=optional_port_number
+
    JWT_SECRET= 'random secret'
 
    Note: If the PORT is not declared in the .env, it will default to 3000.
