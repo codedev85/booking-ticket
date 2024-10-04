@@ -165,15 +165,4 @@ Request Params:
 
 
 
-Environment Variables
-
-The application requires the following environment variables to be set in a .env file:
-
-DB_PASSWORD - The password for the database.
-DATABASE - The name of the database.
-USERNAME - The username for the database connection.
-PORT - The port on which the server runs (optional; defaults to 3000).
-JWT_SECRET - 'random secret'
-
-
 
